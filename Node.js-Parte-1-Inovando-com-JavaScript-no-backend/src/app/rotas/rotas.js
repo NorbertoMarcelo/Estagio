@@ -14,18 +14,18 @@ module.exports = (app) => {
     );
   });
 
-  app.get("/js", function (req, res) {
-    res.send(
-      `
-        <html>
-          <head>
-            <meta charset="utf-8"/>
-          </head>
-          <body>
-            <h1>Olá Javascript</h1>
-          </body>
-        </html>
-      `
-    );
+  app.get("/livros", function (req, res) {
+    res.marko(require("../views/livros/lista/lista.marko"), {
+      livros: [
+        {
+          id: 1,
+          titulo: "Fundamentos de Node",
+        },
+        {
+          id: 2,
+          titulo: "Node Avançado",
+        },
+      ],
+    });
   });
 };
