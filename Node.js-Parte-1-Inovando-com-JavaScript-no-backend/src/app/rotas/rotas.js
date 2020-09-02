@@ -1,3 +1,4 @@
+const LivroDao = require("../infra/livro-dao");
 const db = require("../../config/database");
 
 module.exports = (app) => {
@@ -9,7 +10,7 @@ module.exports = (app) => {
             <meta charset="utf-8"/>
           </head>
           <body>
-            <h1>Olá Node!</h1>
+            <h1>Olá Node!!</h1>
           </body>
         </html>
       `
@@ -17,10 +18,14 @@ module.exports = (app) => {
   });
 
   app.get("/livros", function (req, res) {
-    db.all("SELECT * FROM livros", function (erro, resultados) {
-      res.marko(require("../views/livros/lista/lista.marko"), {
-        livros: resultados,
-      });
-    });
+    const livroDao = new LivroDao(db);
+    livroDao
+      .lista()
+      .then((livros) =>
+        res.marko(require("../views/livros/lista/lista.marko"), {
+          livros: livros,
+        })
+      )
+      .catch((erro) => console.log(erro));
   });
 };
