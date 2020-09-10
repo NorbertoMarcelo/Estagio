@@ -26,6 +26,9 @@ app.use(
   })
 );
 
+const sessaoAutenticacao = require("./sessao-autenticacao");
+sessaoAutenticacao(app);
+
 const rotas = require("../app/rotas/rotas");
 rotas(app);
 

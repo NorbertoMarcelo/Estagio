@@ -8,6 +8,7 @@ const templates = require("../views/templates");
 class LivroControlador {
   static rotas() {
     return {
+      autenticadas: "/livros*",
       lista: "/livros",
       cadastro: "/livros/form",
       edicao: "/livros/form/:id",
@@ -42,11 +43,7 @@ class LivroControlador {
 
       livroDao
         .buscaPorId(id)
-        .then((livro) =>
-          resp.marko(templates.livros.form, {
-            livro: livro,
-          })
-        )
+        .then((livro) => resp.marko(templates.livros.form, { livro: livro }))
         .catch((erro) => console.log(erro));
     };
   }
