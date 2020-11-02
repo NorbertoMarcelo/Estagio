@@ -4,8 +4,7 @@
     "password": "302",
     "database": "escola_ingles",
     "host": "0.0.0.0",
-    "dialect": "mysql",
-    "operatorsAliases": false
+    "dialect": "mysql"
   },
   "test": {
     "username": "root",
