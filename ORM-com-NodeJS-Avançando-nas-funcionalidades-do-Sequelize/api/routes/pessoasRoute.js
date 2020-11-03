@@ -1,41 +1,46 @@
 const { Router } = require("express");
 const PessoaController = require("../controllers/PessoaController");
+const MatriculaController = require("../controllers/MatriculaControler");
 
 const router = Router();
 // GET
 router
-  .get("/pessoas", PessoaController.pegaPessoasAtivas)
-  .get("/pessoas/todos", PessoaController.pegaTodasAsPessoas)
-  .get("/pessoas/:id", PessoaController.pegaUmaPessoas)
+  .get("/pessoas", PessoaController.pegaTodasAsPessoas)
+  .get("/pessoas/ativas", PessoaController.pegaPessoasAtivas)
+  .get("/pessoas/:id", PessoaController.pegaPessoa)
   .get("/pessoas/:estudanteId/matricula", PessoaController.pegaMatriculas)
   .get(
     "/pessoas/:estudanteId/matricula/:matriculaId",
-    PessoaController.pegaUmaMatricula
+    MatriculaController.pegaUmaMatricula
   )
   .get(
     "/pessoas/matricula/:turmaId/confirmadas",
-    PessoaController.pegaMatriculasPorTurma
+    MatriculaController.pegaMatriculasPorTurma
   )
-  .get("/pessoas/matricula/lotada", PessoaController.pegaTurmasLotadas);
+  .get("/pessoas/matricula/lotada", MatriculaController.pegaTurmasLotadas);
 // POST
 router
   .post("/pessoas", PessoaController.criaPessoa)
-  .post("/pessoas/:estudanteId/matricula", PessoaController.criaMatricula)
   .post("/pessoas/:id/restaura", PessoaController.restauraPessoa)
-  .post("/pessoas/:estudanteId/cancela", PessoaController.cancelaPessoa);
+  .post("/pessoas/:estudanteId/cancela", PessoaController.cancelaPessoa)
+  .post("/pessoas/:estudanteId/matricula", MatriculaController.criaMatricula)
+  .post(
+    "/pessoas/:estudanteId/matricula/:matriculaId/restaura",
+    MatriculaController.restauraMatricula
+  );
 // PUT
 router
   .put("/pessoas/:id", PessoaController.atualizaPessoa)
   .put(
     "/pessoas/:estudanteId/matricula/:matriculaId",
-    PessoaController.atualizaMatricula
+    MatriculaController.atualizaMatricula
   );
 // DELETE
 router
   .delete("/pessoas/:id", PessoaController.apagaPessoa)
   .delete(
     "/pessoas/:estudanteId/matricula/:matriculaId",
-    PessoaController.apagaMatricula
+    MatriculaController.apagaMatricula
   );
 
 module.exports = router;
